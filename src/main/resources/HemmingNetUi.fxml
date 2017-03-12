@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="708.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HemmingNetUiController">
+    <tabs>
+        <Tab fx:id="r" text="Инициализация сети">
+            <content>
+                <AnchorPane fx:id="initializationTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="102.0" layoutY="127.0" text="Количество нейронов" />
+                        <Label layoutX="102.0" layoutY="164.0" text="Количество бинарных признаков" />
+                        <TextField fx:id="numberNeuronsField" layoutX="392.0" layoutY="122.0" />
+                        <TextField fx:id="numberBinarySignsField" layoutX="392.0" layoutY="159.0" />
+                        <Button fx:id="initNet" layoutX="368.0" layoutY="277.0" mnemonicParsing="false" onAction="#initializationNetAction" prefHeight="26.0" prefWidth="195.0" text="Инициализировать сеть" />
+                        <Button fx:id="exitProg" layoutX="102.0" layoutY="277.0" mnemonicParsing="false" onAction="#exitProg" text="Выход" />
+                        <Label layoutX="100.0" layoutY="55.0" text="Входные данные для нейронной сети">
+                            <font>
+                                <Font size="19.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="loadFormFile" layoutX="197.0" layoutY="277.0" mnemonicParsing="false" onAction="#loadFormFile" text="Загрузить из файла" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="trainingPane" disable="true" text="Обучение сети">
+            <content>
+                <AnchorPane fx:id="viewMainSimplesPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Pane>
+                            <children>
+                                <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="290.0" prefWidth="679.0">
+                                    <content>
+                                        <HBox fx:id="viewSimplesPane" prefHeight="306.0" prefWidth="651.0" />
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </Pane>
+                        <Button fx:id="deleteSimle" layoutX="179.0" layoutY="319.0" mnemonicParsing="false" onAction="#deletedSimpleAction" prefHeight="26.0" prefWidth="149.0" text="Удалить образец" />
+                        <Button fx:id="addSimple" layoutX="22.0" layoutY="319.0" mnemonicParsing="false" onAction="#addSimpleAction" text="Добавить образцев" />
+                        <Button layoutX="537.0" layoutY="319.0" mnemonicParsing="false" onAction="#teachingNetAction" prefHeight="26.0" prefWidth="158.0" text="Обучить сеть" />
+                        <Button fx:id="saveToFile" layoutX="376.0" layoutY="319.0" mnemonicParsing="false" onAction="#saveToFile" text="Сохранить образцы" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab disable="true" text="Работа сети">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button layoutX="377.0" layoutY="306.0" mnemonicParsing="false" onAction="#runNetAction" prefHeight="27.0" prefWidth="198.0" text="Найти заданный образец" />
+                        <Label layoutX="29.0" layoutY="14.0" text="Искомый образец" />
+                        <Label layoutX="376.0" layoutY="14.0" prefHeight="16.0" prefWidth="85.0" text="Найденный образец" />
+                        <Button layoutX="21.0" layoutY="306.0" mnemonicParsing="false" onAction="#sendFindSimpleAction" prefHeight="24.0" prefWidth="181.0" text="Задать образец" />
+                        <ScrollPane fx:id="viewFindSimple" layoutX="22.0" layoutY="31.0" prefHeight="271.0" prefWidth="320.0" />
+                        <ScrollPane fx:id="viewFoundSimple" disable="true" layoutX="377.0" layoutY="31.0" prefHeight="271.0" prefWidth="309.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="weightingCoefficientMatrixView" disable="true" text="Матрица весовых коэффициентов нейронной сети Хэмминга">
+            <content>
+                <AnchorPane fx:id="weightingCoefficientMatrix" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="scalesFeedbackMatrixView" disable="true" text="Матрица весов обратных связей нейронной сети Хэмминга">
+            <content>
+                <AnchorPane fx:id="scalesFeedbackMatrixMatrix" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="graphicTab" disable="true" text="График сходимости">
+            <content>
+                <AnchorPane fx:id="graphic" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>
