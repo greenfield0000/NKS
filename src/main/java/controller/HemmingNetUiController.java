@@ -450,16 +450,14 @@ public class HemmingNetUiController implements Initializable {
      */
     private void prepareDataFromLoadFile(HashMap<String, Object> resMap) {
         // если произошла ошибка загрузки, то ничего не делаем
-        if (resMap.get("isSuccess").equals(false)) return;
+        if (resMap.get("isSuccess").equals(false)) {
+            new Alert(Alert.AlertType.WARNING, "Не удалось загрузить файл!");
+            return;
+        }
 
         numberNeuronsField.setText((String) resMap.get("numberNeuronsField"));
         numberBinarySignsField.setText((String) resMap.get("numberBinarySignsField"));
-
         coefficientList = (List<List<Integer>>) resMap.get("coefficientList");
-
-        // функция добавления вектора связей.
-//        net.addReferenceSample();
-
     }
 
     /**
