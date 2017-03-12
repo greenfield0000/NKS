@@ -47,7 +47,7 @@
                             </children>
                         </Pane>
                         <Button fx:id="deleteSimle" layoutX="179.0" layoutY="319.0" mnemonicParsing="false" onAction="#deletedSimpleAction" prefHeight="26.0" prefWidth="149.0" text="Удалить образец" />
-                        <Button fx:id="addSimple" layoutX="22.0" layoutY="319.0" mnemonicParsing="false" onAction="#addSimpleAction" text="Добавить образцев" />
+                        <Button fx:id="addSimple" layoutX="22.0" layoutY="319.0" mnemonicParsing="false" onAction="#addSimpleAction" text="Добавить образец" />
                         <Button layoutX="537.0" layoutY="319.0" mnemonicParsing="false" onAction="#teachingNetAction" prefHeight="26.0" prefWidth="158.0" text="Обучить сеть" />
                         <Button fx:id="saveToFile" layoutX="376.0" layoutY="319.0" mnemonicParsing="false" onAction="#saveToFile" text="Сохранить образцы" />
                     </children>
@@ -60,7 +60,7 @@
                     <children>
                         <Button layoutX="377.0" layoutY="306.0" mnemonicParsing="false" onAction="#runNetAction" prefHeight="27.0" prefWidth="198.0" text="Найти заданный образец" />
                         <Label layoutX="29.0" layoutY="14.0" text="Искомый образец" />
-                        <Label layoutX="376.0" layoutY="14.0" prefHeight="16.0" prefWidth="85.0" text="Найденный образец" />
+                        <Label layoutX="376.0" layoutY="14.0" prefHeight="29.0" prefWidth="85.0" text="Найденный образец" />
                         <Button layoutX="21.0" layoutY="306.0" mnemonicParsing="false" onAction="#sendFindSimpleAction" prefHeight="24.0" prefWidth="181.0" text="Задать образец" />
                         <ScrollPane fx:id="viewFindSimple" layoutX="22.0" layoutY="31.0" prefHeight="271.0" prefWidth="320.0" />
                         <ScrollPane fx:id="viewFoundSimple" disable="true" layoutX="377.0" layoutY="31.0" prefHeight="271.0" prefWidth="309.0" />

@@ -379,12 +379,11 @@ public class HemmingNetUiController implements Initializable {
             grid.getRowConstraints().add(row);
         }
 
-        int count = -1;
         for (int i = 0; i < columns; i++) {
             for (int j = 0; j < rows; j++) {
                 Pane pane = new Pane();
-                ++count;
-                pane.getChildren().add(outputVector.get(count) == -1 ? getRectangle(Color.WHITE) : getRectangle(Color.BLACK));
+                int index = i * rows + j;
+                pane.getChildren().add(outputVector.get(index) == -1 ? getRectangle(Color.WHITE) : getRectangle(Color.BLACK));
                 pane.getStyleClass().add("game-grid-cell");
                 if (j == 0) {
                     pane.getStyleClass().add("first-column");
@@ -392,7 +391,7 @@ public class HemmingNetUiController implements Initializable {
                 if (i == 0) {
                     pane.getStyleClass().add("first-row");
                 }
-                grid.add(pane, j, i);
+                grid.add(pane, i, j);
             }
         }
         grid.setDisable(true);
@@ -459,6 +458,7 @@ public class HemmingNetUiController implements Initializable {
             return;
         }
         createInputPaneFromLoad(resMap);
+
     }
 
     /**
@@ -501,7 +501,6 @@ public class HemmingNetUiController implements Initializable {
                     pane = new Pane();
 
                     int index = i * rows + j;
-                    System.out.println(index);
 
                     if (coefList.get(index).equals(-1)) {
                         pane.getChildren().add(getRectangle(Color.WHITE));
@@ -518,14 +517,6 @@ public class HemmingNetUiController implements Initializable {
                     }
                     grid.add(pane, i, j);
                 }
-
-//                for (Integer coef : coefList) {
-//                    if (coef.equals(-1)) {
-//                        pane.getChildren().add(getRectangle(Color.AQUA));
-//                    } else {
-//                        pane.getChildren().add(getRectangle(Color.BLACK));
-//                    }
-//                }
             }
 
             ScrollPane sp = new ScrollPane();
@@ -537,6 +528,7 @@ public class HemmingNetUiController implements Initializable {
             sp.getChildrenUnmodifiable().stream().forEach(it -> it.setDisable(true));
             viewSimplesPane.getChildren().add(sp);
         }
+        new Alert(Alert.AlertType.INFORMATION, "Данные успешно загружены.").show();
     }
 
     /**
@@ -546,7 +538,6 @@ public class HemmingNetUiController implements Initializable {
      * @throws ParserConfigurationException
      */
     public void saveToFile(ActionEvent actionEvent) throws ParserConfigurationException {
-
         FileUtil fileUtil = new FileUtil();
         try {
             fileUtil.setFileName("NeuroNetDataStruct.xml");
@@ -555,5 +546,6 @@ public class HemmingNetUiController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        new Alert(Alert.AlertType.INFORMATION, "Данные успешно сохранены!").show();
     }
 }
