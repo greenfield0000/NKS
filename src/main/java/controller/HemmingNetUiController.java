@@ -101,6 +101,7 @@ public class HemmingNetUiController implements Initializable {
         Button buttonOk = new Button("Ok");
         buttonOk.setOnAction(event -> {
             net.addReferenceSample(new ArrayList<>(coefficient));
+            coefficientList.add(new ArrayList<>(coefficient));
             dialog.close();
             input.getChildrenUnmodifiable().stream().forEach(it -> it.setDisable(true));
             viewSimplesPane.getChildren().add(input);
@@ -118,6 +119,7 @@ public class HemmingNetUiController implements Initializable {
 
 
     private Control createInputPane(int numberBinarySigns) {
+//        coefficientList.add(coefficient);
         coefficient.clear();
         int columns, rows;
         columns = rows = numberBinarySigns;
@@ -159,10 +161,9 @@ public class HemmingNetUiController implements Initializable {
                 if (i == 0) {
                     pane.getStyleClass().add("first-row");
                 }
-                grid.add(pane, j, i);
+                grid.add(pane, i, j);
             }
         }
-        coefficientList.add(coefficient);
         ScrollPane sp = new ScrollPane();
         sp.setContent(grid);
         sp.setHbarPolicy(ALWAYS);
@@ -493,19 +494,21 @@ public class HemmingNetUiController implements Initializable {
                 grid.getRowConstraints().add(row);
             }
 
+            Pane pane = null;
+
             for (int i = 0; i < columns; i++) {
                 for (int j = 0; j < rows; j++) {
-                    Pane pane = new Pane();
+                    pane = new Pane();
 
-                    for (Integer coef : coefList) {
-                        if (coef.equals(-1)) {
-                            pane.getChildren().add(getRectangle(Color.WHITE));
-                        } else {
-                            pane.getChildren().add(getRectangle(Color.BLACK));
-                        }
+                    int index = i * rows + j;
+                    System.out.println(index);
+
+                    if (coefList.get(index).equals(-1)) {
+                        pane.getChildren().add(getRectangle(Color.WHITE));
+                    } else {
+                        pane.getChildren().add(getRectangle(Color.BLACK));
                     }
 
-                    pane.getChildren().add(getRectangle(Color.WHITE));
                     pane.getStyleClass().add("game-grid-cell");
                     if (j == 0) {
                         pane.getStyleClass().add("first-column");
@@ -513,8 +516,16 @@ public class HemmingNetUiController implements Initializable {
                     if (i == 0) {
                         pane.getStyleClass().add("first-row");
                     }
-                    grid.add(pane, j, i);
+                    grid.add(pane, i, j);
                 }
+
+//                for (Integer coef : coefList) {
+//                    if (coef.equals(-1)) {
+//                        pane.getChildren().add(getRectangle(Color.AQUA));
+//                    } else {
+//                        pane.getChildren().add(getRectangle(Color.BLACK));
+//                    }
+//                }
             }
 
             ScrollPane sp = new ScrollPane();
@@ -522,7 +533,7 @@ public class HemmingNetUiController implements Initializable {
             sp.setHbarPolicy(ALWAYS);
             sp.setVbarPolicy(ALWAYS);
 
-            net.addReferenceSample(new ArrayList<>(coefficient));
+            net.addReferenceSample(new ArrayList<>(coefList));
             sp.getChildrenUnmodifiable().stream().forEach(it -> it.setDisable(true));
             viewSimplesPane.getChildren().add(sp);
         }
