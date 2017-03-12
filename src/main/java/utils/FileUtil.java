@@ -1,5 +1,6 @@
 package utils;
 
+import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -21,11 +22,12 @@ import java.util.Map;
 public class FileUtil {
 
     private String fileName;
-    private JFileChooser fileChooser;
+    private String projectPath;
     private DocumentBuilderFactory factory;
     private Document document;
 
     public FileUtil() throws ParserConfigurationException {
+        projectPath = System.getProperty("user.dir");
         factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
         document = factory.newDocumentBuilder().newDocument();
@@ -38,9 +40,9 @@ public class FileUtil {
      * @param coefficientList        - all Images
      * @throws IOException
      */
-    public void saveFile(String fileName, String numberNeuronsField, String numberBinarySignsField,
+    public void saveFile(String numberNeuronsField, String numberBinarySignsField,
                          List<List<Integer>> coefficientList) throws IOException {
-        File file = new File("/home/roman/Загрузки/RSATU2016-NCS-master/src/main/resources/" + fileName);
+        File file = new File(projectPath + "src/main/resources/" + fileName);
         if (!file.exists()) {
             file.createNewFile();
         }
@@ -99,7 +101,15 @@ public class FileUtil {
         return document;
     }
 
-    public Map<String, Object> loadFile(String pathFile) {
+    public Map<String, Object> loadFile() {
         return new HashMap<>();
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return this.fileName;
     }
 }

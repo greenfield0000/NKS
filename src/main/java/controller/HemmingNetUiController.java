@@ -439,7 +439,8 @@ public class HemmingNetUiController implements Initializable {
      */
     public void loadFormFile(ActionEvent actionEvent) throws IOException, ParserConfigurationException {
         FileUtil fileUtil = new FileUtil();
-        HashMap<String, Object> resMap = (HashMap<String, Object>) fileUtil.loadFile("NeuroNetDataStruct.xml");
+        fileUtil.setFileName("NeuroNetDataStruct.xml");
+        HashMap<String, Object> resMap = (HashMap<String, Object>) fileUtil.loadFile();
         prepareDataFromLoadFile(resMap);
     }
 
@@ -470,7 +471,8 @@ public class HemmingNetUiController implements Initializable {
 
         FileUtil fileUtil = new FileUtil();
         try {
-            fileUtil.saveFile("NeuroNetDataStruct.xml", numberNeuronsField.getText(),
+            fileUtil.setFileName("NeuroNetDataStruct.xml");
+            fileUtil.saveFile(numberNeuronsField.getText(),
                     numberBinarySignsField.getText(), coefficientList);
         } catch (IOException e) {
             e.printStackTrace();
