@@ -95,8 +95,8 @@ public class HemmingNet {
 
     public void teachTheNetwork() {
         // обучаем сеть
-        determineThreshold(); // считаем парог
-        determineWeightInhibitorySynapse(); // опеределяем абсолютное значение веса каждого ингибиторного синапса
+        determineThreshold(); // считаем порог
+        determineWeightInhibitorySynapse(); // опеределяем абсолютное значение веса каждого тормозящего синапса
         calculateWeightsMatrixNeuronsFirstLayer();
         calculationScalesFeedbackMatrix();
     }

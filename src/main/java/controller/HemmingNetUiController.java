@@ -80,7 +80,7 @@ public class HemmingNetUiController implements Initializable {
     }
 
     /**
-     * Добавление нового образа
+     * Добавление нового образца
      */
     public void addSimpleAction() {
         if (viewSimplesPane.getChildren().size() < numberNeurons) {
@@ -172,6 +172,7 @@ public class HemmingNetUiController implements Initializable {
 
     /**
      * Закрашиваем цветом квадратик
+     *
      * @param color
      * @return
      */
@@ -356,6 +357,7 @@ public class HemmingNetUiController implements Initializable {
 
     /**
      * Построение
+     *
      * @param outputVector
      * @return
      */
@@ -446,6 +448,7 @@ public class HemmingNetUiController implements Initializable {
 
     /**
      * Передача загруженных данных в сеть
+     *
      * @param resMap - подгруженные данные
      */
     private void prepareDataFromLoadFile(HashMap<String, Object> resMap) {
@@ -454,14 +457,80 @@ public class HemmingNetUiController implements Initializable {
             new Alert(Alert.AlertType.WARNING, "Не удалось загрузить файл!");
             return;
         }
+        createInputPaneFromLoad(resMap);
+    }
 
+    /**
+     * Инициализация загруженных данных
+     *
+     * @param resMap - load data from file
+     */
+    private void createInputPaneFromLoad(HashMap<String, Object> resMap) {
         numberNeuronsField.setText((String) resMap.get("numberNeuronsField"));
         numberBinarySignsField.setText((String) resMap.get("numberBinarySignsField"));
         coefficientList = (List<List<Integer>>) resMap.get("coefficientList");
+
+
+        numberBinarySigns = Integer.parseInt(numberBinarySignsField.getText());
+        numberNeurons = Integer.parseInt(numberNeuronsField.getText());
+        net.setNumberBinarySigns((int) Math.pow(numberBinarySigns, 2));
+        net.setNumberNeurons(numberNeurons);
+        initializationTab.setDisable(true);
+        trainingPane.setDisable(false);
+        selectionModel.select(1);
+
+        for (List<Integer> coefList : coefficientList) {
+
+            int columns, rows;
+            columns = rows = numberBinarySigns;
+            GridPane grid = new GridPane();
+            grid.getStyleClass().add("game-grid");
+
+            for (int i = 0; i < columns; i++) {
+                ColumnConstraints column = new ColumnConstraints(42);
+                grid.getColumnConstraints().add(column);
+                RowConstraints row = new RowConstraints(42);
+                grid.getRowConstraints().add(row);
+            }
+
+            for (int i = 0; i < columns; i++) {
+                for (int j = 0; j < rows; j++) {
+                    Pane pane = new Pane();
+
+                    for (Integer coef : coefList) {
+                        if (coef.equals(-1)) {
+                            pane.getChildren().add(getRectangle(Color.WHITE));
+                        } else {
+                            pane.getChildren().add(getRectangle(Color.BLACK));
+                        }
+                    }
+
+                    pane.getChildren().add(getRectangle(Color.WHITE));
+                    pane.getStyleClass().add("game-grid-cell");
+                    if (j == 0) {
+                        pane.getStyleClass().add("first-column");
+                    }
+                    if (i == 0) {
+                        pane.getStyleClass().add("first-row");
+                    }
+                    grid.add(pane, j, i);
+                }
+            }
+
+            ScrollPane sp = new ScrollPane();
+            sp.setContent(grid);
+            sp.setHbarPolicy(ALWAYS);
+            sp.setVbarPolicy(ALWAYS);
+
+            net.addReferenceSample(new ArrayList<>(coefficient));
+            sp.getChildrenUnmodifiable().stream().forEach(it -> it.setDisable(true));
+            viewSimplesPane.getChildren().add(sp);
+        }
     }
 
     /**
      * Сохранить в файл образы
+     *
      * @param actionEvent
      * @throws ParserConfigurationException
      */

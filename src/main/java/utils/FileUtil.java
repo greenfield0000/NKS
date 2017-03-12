@@ -35,7 +35,6 @@ public class FileUtil {
         document = factory.newDocumentBuilder().newDocument();
     }
 
-
     /**
      * @param numberNeuronsField     - count neuron
      * @param numberBinarySignsField - count binarySignsField
